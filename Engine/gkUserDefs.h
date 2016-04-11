@@ -79,6 +79,8 @@ public:
 	bool                    rtss;               // Enable RTShadingSystem
 	bool                    hasFixedCapability; // Renderer supports fixed-function pipeline
 	gkString				androidConfig;		// Android Config Handle (Ogre 1.9)
+    //new
+	int                     networkType ; //SERVER or CLIENT or NONE
 
 	GK_INLINE bool          isD3DRenderSystem() { return isD3DRenderSystem(rendersystem); }
 

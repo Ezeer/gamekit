@@ -57,7 +57,7 @@ void gkNetworkInstance::exit(void)
 		mThread = 0;
 	}  // if
 
-	deinitialize();
+	close();
 }  // void gkNetworkInstance::exit
 
 void gkNetworkInstance::stop(void)
@@ -205,7 +205,7 @@ void gkNetworkInstance::run(void)
 				switch (lEvent.type)
 				{
 				case ENET_EVENT_TYPE_CONNECT:
-
+               // printf("Connected with %i on port %i !\n", lEvent.peer->address.host,lEvent.peer->address.port);
 					break;
 
 				case ENET_EVENT_TYPE_RECEIVE:
@@ -235,7 +235,7 @@ void gkNetworkInstance::run(void)
 	mSync.signal();
 }  // gkNetworkInstance::run
 
-void gkNetworkInstance::deinitialize(void)
+void gkNetworkInstance::close(void)
 {
 	if(mHost != NULL)
 	{

@@ -39,8 +39,8 @@ public:
 	gkString    m_blend;
 	gkScene*    m_scene;
 public:
-	OgreKit();
-	virtual ~OgreKit() {}
+	OgreKit(int networked);//0=no 1=server 2=client
+	virtual ~OgreKit() ;
 
 	int setup(int argc, char** argv);
 
@@ -48,16 +48,22 @@ public:
 private:
 
 	bool setup(void);
+	int m_networkType;
 };
 
 
 
-OgreKit::OgreKit()
-	:   m_blend(gkDefaultBlend), m_scene(0)
+OgreKit::OgreKit(int networked)
+	:   m_blend(gkDefaultBlend),m_networkType(networked)
 {
 }
 
+OgreKit::~OgreKit()
+	{
+		//if(gkNetworkManager::getSingletonPtr()->isNetworkInstanceExists())
+		//{}gkPrintf("Network Instance Exists !\n");
 
+	}
 int OgreKit::setup(int argc, char** argv)
 {
 	int winsize_x		= 800;
@@ -75,7 +81,7 @@ int OgreKit::setup(int argc, char** argv)
 
 		//cfg arguments
 
-		TCLAP::ValueArg<std::string>	rendersystem_arg		("r", "rendersystem",			"Set rendering system. (gl, d3d9, d3d10, d3d11)", false, "", "string"); //default GL
+		TCLAP::ValueArg<std::string>	rendersystem_arg		("r", "rendersystem",			"Set rendering system. (gl, d3d9, d3d10, d3d11)", false, "d3d9", "string"); //default GL
 		TCLAP::ValueArg<std::string>	viewportOrientation_arg	("",  "viewportorientation",	"Set viewport orientation.", false, m_prefs.viewportOrientation, "string"); 
 		TCLAP::ValueArg<std::string>	log_arg					("",  "log",					"Set log file name.", false, m_prefs.log, "string"); 
 		TCLAP::ValueArg<bool>			verbose_arg				("v", "verbose",				"Enable verbose log.", false, m_prefs.verbose, "bool");
@@ -107,6 +113,8 @@ int OgreKit::setup(int argc, char** argv)
 		TCLAP::ValueArg<std::string>	colourshadow_arg		("",  "colourshadow",			"Set shadow colour.", false, "", "string"); 
 		TCLAP::ValueArg<float>			fardistanceshadow_arg	("",  "fardistanceshadow",		"Set far distance shadow.", false, m_prefs.fardistanceshadow, "float"); 
 		TCLAP::ValueArg<std::string>	shaderCachePath_arg		("",  "shadercachepath",		"RTShaderSystem cache file path.", false, m_prefs.shaderCachePath, "string"); 
+		//new
+		TCLAP::ValueArg<int>	networktype_arg		("",  "networktype","Client or server instance.", false, m_prefs.networkType, "int"); 
 		
 
 		cmdl.add(rendersystem_arg);
@@ -140,6 +148,7 @@ int OgreKit::setup(int argc, char** argv)
 		cmdl.add(colourshadow_arg);
 		cmdl.add(fardistanceshadow_arg);
 		cmdl.add(shaderCachePath_arg);
+		cmdl.add(networktype_arg);
 
 		//input file arguments
 		
@@ -188,6 +197,7 @@ int OgreKit::setup(int argc, char** argv)
 		m_prefs.shadowtechnique			= shadowtechnique_arg.getValue();
 		m_prefs.fardistanceshadow		= fardistanceshadow_arg.getValue();	
 		m_prefs.shaderCachePath			= shaderCachePath_arg.getValue();
+		//m_prefs.networktype             = networktype_arg.getValue();
 
 		if (colourshadow_arg.isSet())
 			m_prefs.colourshadow		= Ogre::StringConverter::parseColourValue(colourshadow_arg.getValue());
@@ -220,7 +230,9 @@ int OgreKit::setup(int argc, char** argv)
 
 	// overide settings if found
 	if (path.isFile())
+	{   
 		m_prefs.load(path.getPath());
+	}
 
 	return 0;
 }
@@ -255,6 +267,24 @@ bool OgreKit::setup(void)
 	//gkCompositorManager::getSingleton().setCompositorChain(GK_COMPOSITOR_OP_ADD, GK_COMPOSITOR_BLOOM);
 #endif
 
+	//network
+	//getPrefs().networkType=1;
+	gkPrintf ("NETWORK MODE: %i\n",m_prefs.networkType);
+		
+	if(getPrefs().networkType==SERVER)
+	{
+	gkNetworkManager::getSingletonPtr()->createNetworkInstance(SERVER,"server","127.0.0.1",77);
+	gkPrintf ("************ starting the server ****************\n");
+	}else if (getPrefs().networkType==CLIENT)
+	{
+	gkNetworkManager::getSingletonPtr()->createNetworkInstance(CLIENT,"client","127.0.0.1",77);
+	gkPrintf ("************ starting the client ****************\n");
+	}
+	
+	gkNetworkManager::getSingletonPtr()->startNetworkInstance();
+	
+	
+	
 	return true;
 }
 
@@ -263,7 +293,19 @@ bool OgreKit::setup(void)
 void OgreKit::keyReleased(const gkKeyboard& key, const gkScanCode& sc)
 {
 	if (sc == KC_ESCKEY)
+	{  //network
+		if(gkNetworkManager::getSingletonPtr()->isNetworkInstanceExists())
+		{
+			if(gkNetworkManager::getSingletonPtr()->isServer())
+	    gkPrintf ("************ stopping the server ****************\n");
+			else
+        gkPrintf ("************ stopping the client ****************\n");
+		gkNetworkManager::getSingletonPtr()->stopNetworkInstance();
+		}
+		
 		m_engine->requestExit();
+	}
+		
 }
 
 int main(int argc, char** argv)
@@ -271,7 +313,7 @@ int main(int argc, char** argv)
 
 	TestMemory;
 
-	OgreKit okit;
+	OgreKit okit(0);
 	if (okit.setup(argc, argv) != 0)
 	{
 		// error

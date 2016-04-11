@@ -33,16 +33,18 @@
 #include "gkDebugger.h"
 #include "gkLogger.h"
 
+///CLASS gkNetworkManager
+/// New manager that implement two Instances now
 gkNetworkManager::gkNetworkManager()
 {
-	mInstance = NULL;
-
+	mConnection=NULL;
+	
 	initialize();
 }  // gkNetworkManager::gkNetworkManager
 
 gkNetworkManager::~gkNetworkManager()
 {
-	deinitialize();
+	close();
 }  // gkNetworkManager::~gkNetworkManager
 
 void gkNetworkManager::initialize(void)
@@ -53,26 +55,25 @@ void gkNetworkManager::initialize(void)
     }  // if
 }  // bool gkNetworkManager::initialize
 
-void gkNetworkManager::deinitialize(void)
+void gkNetworkManager::close( )
 {
-	if(mInstance != NULL)
-	{
-		delete mInstance;
-	}  // if
-
-	mInstance = NULL;
-
-	enet_deinitialize();
+	   if(mConnection!=NULL)
+	   {
+    //mServer->exit();
+	delete mConnection;
+	mConnection = NULL;
+	   }
+	 enet_deinitialize();
 }  // void gkNetworkManager::initialize
 
 void gkNetworkManager::createNetworkInstance(const int & pType, const gkString & pName, const gkString & pAddress, const int & pPort)
 {
-	// If there is already an instance, a new one cannot be created until the existing one is removed
-	if(mInstance != NULL)
+	 //If there is already an instance, a new one cannot be created until the existing one is removed
+	if(mConnection != NULL)
 	{
 		gkLogger::write("Network Instance cannot be created since there is already an existing instance\n");
 		return;
-	}  // if
+	} 
 
 	// Only create if there is a non - empty name and a non - empty address
 	if(pName.length() == 0 || pAddress.length() == 0)
@@ -82,67 +83,88 @@ void gkNetworkManager::createNetworkInstance(const int & pType, const gkString &
 	}  // if
 
 	// Setup new connection
-	if(pType == 0)
-	{
-		mInstance = new gkNetworkServer(pName);
+	if(pType == SERVER)
+	{   mConnectionType=SERVER;
+		mConnection = new gkNetworkServer(pName);
+		mConnection -> setAddress(pAddress);
+	    mConnection -> setPort(pPort);
 	}  // if
-	else
-	{
-		mInstance = new gkNetworkClient(pName);
-	}  // else
+	else if(pType == CLIENT)
+	{   mConnectionType=CLIENT;
+		mConnection = new gkNetworkClient(pName);
+		mConnection -> setAddress(pAddress);
+	    mConnection -> setPort(pPort);
+	}
+	
 
-	mInstance -> setAddress(pAddress);
-	mInstance -> setPort(pPort);
+	
 }  // void gkNetworkManager::startNetworkInstance
+
 
 void gkNetworkManager::startNetworkInstance()
 {
-	if(mInstance != NULL)
-	{
-		mInstance -> start();
-	}  // if
+	
+	 if(mConnection != NULL)
+	 {
+		mConnection -> start();
+	 }
+ 
 }  // void gkNetworkManager::startNetworkInstance
+
 
 void gkNetworkManager::stopNetworkInstance()
 {
-	if(mInstance != NULL)
-	{
-		mInstance -> stop();
-	}  // if
+	
+	
+	 if(mConnection != NULL)
+	 {
+		mConnection -> stop();
+	 }
+	  
+	
 }  // void gkNetworkManager::stopNetworkInstance
+
+bool gkNetworkManager::isServer()
+{
+	if(mConnectionType==SERVER)return true;return false;
+}
 
 bool gkNetworkManager::isNetworkInstanceRunning()
 {
-	if(mInstance != NULL)
-	{
-		return mInstance -> isRunning();
-	}  // if
+	
+	 if(mConnection != NULL)
+	 {
+		return mConnection -> isRunning();
+	 }
 
-	return false;
-}  // bool gkNetworkManager::isNetworkInstanceRunning
+	 return false; 
+}  
 
 void gkNetworkManager::deleteNetworkInstance()
 {
-	deinitialize();
-}  // gkNetworkManager::deleteNetworkInstance
+	close();//todo : separate client and server treatment....
+}  
 
 void gkNetworkManager::sendMessage(
 	const gkString & pSender, const gkString & pReceiver, 
 	const gkString & pSubject, const gkString & pBody)
 {
-	if(mInstance != NULL)
-	{
-		mInstance ->sendMessage(pSender, pReceiver, pSubject, pBody);
-	}  // if
-}  // gkNetworkManager::sendMessage
+	
+	 if(mConnection != NULL)
+	 {
+		mConnection ->sendMessage(pSender, pReceiver, pSubject, pBody);
+	 }
 
-bool gkNetworkManager::isNetworkInstanceExists(void)
+}  
+
+bool gkNetworkManager::isNetworkInstanceExists()
 {
-	if(mInstance != NULL)
-	{
+	
+	 if(mConnection != NULL)
+	 {
 		return true;
-	}  // if
-
+	 }
+	
 	return false;
 }  // bool isNetworkInstanceExists
 

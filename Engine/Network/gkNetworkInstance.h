@@ -58,11 +58,11 @@ protected:
 	// It will be implemented by child methods
 	virtual bool initialize(void) = 0;
 
-	// deinitialize
-	// Input: None
-	// Return: None
-	// To free host resources if exist
-	void deinitialize(void);
+	/// Close
+	/// Input: None
+	/// Return: None
+	/// To free host resources if exist
+	void close(void);
 
 	// receiveMessage
 	// Input: pPacket The packet pointer to packet object that contains 

@@ -79,6 +79,7 @@ gkUserDefs::gkUserDefs()
 	shadowtechnique("stencilmodulative"),
 	colourshadow(0.8f, 0.8f, 0.8f),
 	fardistanceshadow(0),
+	networkType(-1),
 #ifdef OGRE_BUILD_RENDERSYSTEM_GLES2
 	defaultMipMap(0), //black texture issue
 #else
@@ -325,6 +326,11 @@ void gkUserDefs::parseString(const gkString& key, const gkString& val)
 	if (KeyEq("shaderCachePath"))
 	{
 		shaderCachePath = val;
+		return;
+	}
+	if (KeyEq("networktype"))
+	{
+		networkType = Ogre::StringConverter::parseInt(val);
 		return;
 	}
 

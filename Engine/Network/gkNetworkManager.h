@@ -37,25 +37,27 @@
 #include "gkNetworkClient.h"
 
 #include <enet/enet.h>
+#define SERVER 0
+#define CLIENT 1
 
 // Network system manager
 class gkNetworkManager : public utSingleton<gkNetworkManager>
 {
 private:
 
-	gkNetworkInstance * mInstance;
-
+	gkNetworkInstance * mConnection;
+	
 	// initialize
 	// Input: None
 	// Return: None
 	// Initialize enent
 	void initialize(void);
-	
-	// initialize
+	int mConnectionType; //SERVER or CLIENT
+	// close
 	// Input: None
 	// Return: None
 	// Deinitialize enet
-	void deinitialize(void);
+	void close( );
 
 public:
 	// Constructor
@@ -63,6 +65,9 @@ public:
 	// Return: None
 	// Initialize class
 	gkNetworkManager();
+	bool isServer();
+    
+	
 
 	// Constructor
 	// Input: None
@@ -82,29 +87,31 @@ public:
 		const int & pType, const gkString & pName, 
 		const gkString & pAddress, const int & pPort);
 
+	
 	// startNetworkInstance
 	// Input: None
 	// Return: None
 	// Start network instance if one exists
-	void startNetworkInstance(void);
+	// type 's' for server , 'c' for client
+	void startNetworkInstance();
 
 	// stopNetworkInstance
 	// Input: None
 	// Return: None
 	// Stop the network instance if one exists
-	void stopNetworkInstance(void);
+	void stopNetworkInstance();
 
 	// isNetworkInstanceRunning
 	// Input:None
 	// Return: bool To indicate whether the instance is running
 	// To get bool to indicate whether the instance is running
-	bool isNetworkInstanceRunning(void);
+	bool isNetworkInstanceRunning();
 
 	// deleteNetworkInstance
 	// Input: None
 	// Return: None
 	// Remove the instance and free its resouces if there is one
-	void deleteNetworkInstance(void);
+	void deleteNetworkInstance();
 
 	// sendMessage
 	// Input: pSender The name of the sender object
@@ -121,7 +128,7 @@ public:
 	// Input: None
 	// Return: bool To indicate whether there is a network instance
 	// To get bool to indicate whether there is a network instance
-	bool isNetworkInstanceExists(void);
+	bool isNetworkInstanceExists();
 
 protected:
 

@@ -256,6 +256,7 @@ void gkEngine::initialize()
 	new gkSceneManager();
 #ifdef OGREKIT_COMPILE_ENET
 	new gkNetworkManager();
+	//gkPrintf("***  new gkNetworkManager() ***\n");
 #endif
 #ifdef OGREKIT_USE_NNODE
 	new gkNodeManager();

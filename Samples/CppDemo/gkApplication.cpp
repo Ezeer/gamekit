@@ -44,7 +44,7 @@ int main(int argc, char** argv)
 
 
 	gkUserDefs prefs;
-	prefs.rendersystem = OGRE_RS_GL;
+	prefs.rendersystem = OGRE_RS_D3D9;
 	//prefs.winsize.x = 1360.f;
 	//prefs.winsize.y = 768.f;
 	//prefs.fullscreen = true;
