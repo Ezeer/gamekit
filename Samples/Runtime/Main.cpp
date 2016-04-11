@@ -269,7 +269,7 @@ bool OgreKit::setup(void)
 
 	//network
 	//getPrefs().networkType=1;
-	gkPrintf ("NETWORK MODE: %i\n",m_prefs.networkType);
+	/*gkPrintf ("NETWORK MODE: %i\n",m_prefs.networkType);
 		
 	if(getPrefs().networkType==SERVER)
 	{
@@ -283,7 +283,7 @@ bool OgreKit::setup(void)
 	
 	gkNetworkManager::getSingletonPtr()->startNetworkInstance();
 	
-	
+	*/
 	
 	return true;
 }
@@ -293,16 +293,7 @@ bool OgreKit::setup(void)
 void OgreKit::keyReleased(const gkKeyboard& key, const gkScanCode& sc)
 {
 	if (sc == KC_ESCKEY)
-	{  //network
-		if(gkNetworkManager::getSingletonPtr()->isNetworkInstanceExists())
-		{
-			if(gkNetworkManager::getSingletonPtr()->isServer())
-	    gkPrintf ("************ stopping the server ****************\n");
-			else
-        gkPrintf ("************ stopping the client ****************\n");
-		gkNetworkManager::getSingletonPtr()->stopNetworkInstance();
-		}
-		
+	{  
 		m_engine->requestExit();
 	}
 		

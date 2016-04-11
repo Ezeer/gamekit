@@ -49,7 +49,7 @@ gkUserDefs::gkUserDefs()
 #endif
 
 #else
-	rendersystem(OGRE_RS_GL),
+	rendersystem(OGRE_RS_D3D9),
 	viewportOrientation(""),
 #endif
 	sceneManager(-1),
@@ -80,6 +80,8 @@ gkUserDefs::gkUserDefs()
 	colourshadow(0.8f, 0.8f, 0.8f),
 	fardistanceshadow(0),
 	networkType(-1),
+	networkPort(888),
+	networkHost("127.0.0.1"),
 #ifdef OGRE_BUILD_RENDERSYSTEM_GLES2
 	defaultMipMap(0), //black texture issue
 #else
@@ -331,6 +333,16 @@ void gkUserDefs::parseString(const gkString& key, const gkString& val)
 	if (KeyEq("networktype"))
 	{
 		networkType = Ogre::StringConverter::parseInt(val);
+		return;
+	}
+	if (KeyEq("networkport"))
+	{
+		networkPort = Ogre::StringConverter::parseInt(val);
+		return;
+	}
+	if (KeyEq("networkhost"))
+	{
+		networkHost =val;
 		return;
 	}
 
