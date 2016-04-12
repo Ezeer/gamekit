@@ -35,18 +35,7 @@ gkCoreApplication::gkCoreApplication()
 
 gkCoreApplication::~gkCoreApplication()
 {
-	if(hasNetwork)
-	{
-		//network
-		if(gkNetworkManager::getSingletonPtr()->isNetworkInstanceExists())
-		{
-			if(gkNetworkManager::getSingletonPtr()->isServer())
-	    gkPrintf ("************ stopping the server ****************\n");
-			else
-        gkPrintf ("************ stopping the client ****************\n");
-		gkNetworkManager::getSingletonPtr()->stopNetworkInstance();
-		}
-	}
+	
 	delete m_engine;
 	m_engine = 0;
 }
@@ -56,37 +45,12 @@ void gkCoreApplication::run(void)
 {
 	if (!initialize())
 		return;
-	initNetwork();
+	
 	if (m_engine)
 		m_engine->run();
 }
-//BE SURE TO HAVE " OGREKIT_COMPILE_ENET " flag set in your project...
-bool gkCoreApplication::initNetwork()
-{
-	#ifndef OGREKIT_COMPILE_ENET
-	hasNetwork=false;
-    #endif
-	//NETWORK DISABLED IN .cfg ?
-	if(m_prefs.networkType==-1)return hasNetwork=false; 
-    
-	gkPrintf ("*********************************************************\n");
-	gkPrintf ("NETWORK MODE: %i\n",m_prefs.networkType);
-		
-	if(m_prefs.networkType==SERVER)
-	{
-	gkNetworkManager::getSingletonPtr()->createNetworkInstance(SERVER,"server",m_prefs.networkHost,m_prefs.networkPort);
-	gkPrintf ("starting the server : IP=%s PORT=%i\n",m_prefs.networkHost.c_str(),m_prefs.networkPort);
-	}else if (getPrefs().networkType==CLIENT)
-	{
-	gkNetworkManager::getSingletonPtr()->createNetworkInstance(CLIENT,"client",m_prefs.networkHost,m_prefs.networkPort);
-	gkPrintf ("starting the client : IP=%s PORT=%i\n",m_prefs.networkHost.c_str(),m_prefs.networkPort);
-	}
-	gkPrintf ("*********************************************************\n");
-	
-	gkNetworkManager::getSingletonPtr()->startNetworkInstance();
-	return hasNetwork=true;
-	
-}
+
+
 // Internal startup
 bool gkCoreApplication::initialize(void)
 {

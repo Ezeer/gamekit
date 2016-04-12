@@ -99,6 +99,9 @@ private:
 	Listeners               m_listeners;
 
 	static gkScalar         m_tickRate;
+	//NETWORK
+	bool initNetwork();
+	bool hasNetwork;
 
 	UT_DECLARE_SINGLETON(gkEngine);
 };

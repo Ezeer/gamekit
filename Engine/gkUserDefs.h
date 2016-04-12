@@ -82,7 +82,7 @@ public:
     //new
 	int                     networkType ; //SERVER or CLIENT or NONE
 	int                     networkPort ; //Port to use
-	gkString                     networkHost ; //IP of the host to connect to
+	gkString                networkHost ; //IP of the host to connect to
 
 	GK_INLINE bool          isD3DRenderSystem() { return isD3DRenderSystem(rendersystem); }
 

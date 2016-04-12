@@ -79,9 +79,9 @@ gkUserDefs::gkUserDefs()
 	shadowtechnique("stencilmodulative"),
 	colourshadow(0.8f, 0.8f, 0.8f),
 	fardistanceshadow(0),
-	networkType(-1),
-	networkPort(888),
-	networkHost("127.0.0.1"),
+	networkType(-1),//disabled by default , overided by the cfg file or manually...
+	networkPort(888),//great number ...
+	networkHost("127.0.0.1"),// default again to localhost
 #ifdef OGRE_BUILD_RENDERSYSTEM_GLES2
 	defaultMipMap(0), //black texture issue
 #else

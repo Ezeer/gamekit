@@ -69,7 +69,10 @@ int OgreKit::setup(int argc, char** argv)
 	int winsize_x		= 800;
 	int winsize_y		= 600;
 	m_prefs.wintitle	= gkString("OgreKit Demo (Press Escape to exit)[") + m_blend + gkString("]");
-
+    m_prefs.networkType=0;
+	m_prefs.networkHost="127.0.0.1";
+	m_prefs.networkPort=8080;
+	
 
 	gkString cfgfname;
 
@@ -231,7 +234,7 @@ int OgreKit::setup(int argc, char** argv)
 	// overide settings if found
 	if (path.isFile())
 	{   
-		m_prefs.load(path.getPath());
+		m_prefs.load(gkDefaultConfig);
 	}
 
 	return 0;

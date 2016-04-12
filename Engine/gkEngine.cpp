@@ -211,7 +211,33 @@ gkEngine::~gkEngine()
 	}
 }
 
-
+//BE SURE TO HAVE " OGREKIT_COMPILE_ENET " flag set in your project...
+bool gkEngine::initNetwork()
+{
+	#ifndef OGREKIT_COMPILE_ENET
+	hasNetwork=false;
+    #endif
+	//NETWORK DISABLED IN .cfg ?
+	if(m_defs->networkType==-1)return hasNetwork=false; 
+    
+	gkPrintf ("*********************************************************\n");
+	gkPrintf ("NETWORK MODE: %i\n",m_defs->networkType);
+		
+	if(m_defs->networkType==SERVER)
+	{
+	gkNetworkManager::getSingletonPtr()->createNetworkInstance(SERVER,"server",m_defs->networkHost,m_defs->networkPort);
+	gkPrintf ("starting the server : IP=%s PORT=%i\n",m_defs->networkHost.c_str(),m_defs->networkPort);
+	}else if (m_defs->networkType==CLIENT)
+	{
+	gkNetworkManager::getSingletonPtr()->createNetworkInstance(CLIENT,"client",m_defs->networkHost,m_defs->networkPort);
+	gkPrintf ("starting the client : IP=%s PORT=%i\n",m_defs->networkHost.c_str(),m_defs->networkPort);
+	}
+	gkPrintf ("*********************************************************\n");
+	
+	gkNetworkManager::getSingletonPtr()->startNetworkInstance();
+	return hasNetwork=true;
+	
+}
 
 void gkEngine::initialize()
 {
@@ -257,6 +283,7 @@ void gkEngine::initialize()
 ///NETWORK
 #ifdef OGREKIT_COMPILE_ENET
 	new gkNetworkManager();
+	if(!initNetwork())gkPrintf ("************ NO NETWORK ****************\n");
 	//gkPrintf("***  new gkNetworkManager() ***\n");
 #endif
 #ifdef OGREKIT_USE_NNODE
@@ -384,6 +411,18 @@ void gkEngine::finalize()
 	tmgr->destroyAll();
 
 #ifdef OGREKIT_COMPILE_ENET
+	if(hasNetwork)
+	{
+		//network
+		if(gkNetworkManager::getSingletonPtr()->isNetworkInstanceExists())
+		{
+			if(gkNetworkManager::getSingletonPtr()->isServer())
+	    gkPrintf ("************ stopping the server ****************\n");
+			else
+        gkPrintf ("************ stopping the client ****************\n");
+		gkNetworkManager::getSingletonPtr()->stopNetworkInstance();
+		}
+	}
 	delete gkNetworkManager::getSingletonPtr();
 #endif
 #ifdef OGREKIT_USE_NNODE

@@ -44,7 +44,7 @@ protected:
 protected:
 	gkEngine*   m_engine;
 	gkUserDefs  m_prefs;
-	bool hasNetwork;
+	
 
 	virtual bool setup(void) {return false;}
 	virtual void tick(gkScalar rate) {};
@@ -58,8 +58,7 @@ public:
 	gkUserDefs& getPrefs(void) {return m_prefs;}
 	// Internal startup
 	bool initialize(void);
-	bool initNetwork();
-	void run(void);
+    void run(void);
 };
 
 #endif//_gkCoreApplication_h_
