@@ -189,7 +189,7 @@ protected:
 
 	gkGameController *m_input;
 	//Network
-	 virtual void handleMessage(gkMessageManager::Message* message); 
+	  void handleMessage(gkMessageManager::Message* message); 
 };
 
 

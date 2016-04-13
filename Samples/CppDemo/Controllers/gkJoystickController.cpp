@@ -32,6 +32,7 @@
 #include "gkEntity.h"
 
 
+
 gkJoystickController::gkJoystickController(gkGamePlayer* player)
 	:    m_player(player),
 	     m_btn1Cache(0),
@@ -41,7 +42,12 @@ gkJoystickController::gkJoystickController(gkGamePlayer* player)
 	     m_isBtn2(false),
 	     m_isBtn3(false)
 {
+
 	m_joystick = gkWindowSystem::getSingleton().getJoystick(0);
+	 m_XAxis=0;
+     m_YAxis=1;
+     m_CamXAxis=0;
+	 m_CamYAxis=1;
 	GK_ASSERT(m_joystick);
 }
 
@@ -50,6 +56,11 @@ gkJoystickController::~gkJoystickController()
 {
 }
 
+void gkJoystickController::setAxeXY(int axeX,int axeY)
+{
+	 m_XAxis=axeX;
+	 m_YAxis=axeY;
+}
 
 bool gkJoystickController::hasInput(const gkGameController::InputCode& ic)
 {
@@ -151,10 +162,11 @@ bool gkJoystickController::isButtonDownCache(int btn, int& cache)
 
 void gkJoystickController::updateInputState(void)
 {
-	m_camRot.m_absolute   = gkVector2(m_joystick->getAxisValue(0), m_joystick->getAxisValue(1));
+	
+	m_camRot.m_absolute   = gkVector2(m_joystick->getAxisValue(m_CamXAxis), m_joystick->getAxisValue( m_CamYAxis));
 	m_camRot.normalize();
 
-	m_movement.m_absolute = gkVector2(m_joystick->getAxisValue(2), m_joystick->getAxisValue(3));
+	m_movement.m_absolute = gkVector2(m_joystick->getAxisValue(m_XAxis), m_joystick->getAxisValue(m_YAxis));
 	m_movement.normalize();
 
 	m_isBtn1 = isButtonDownCache(GK_JOY_BUTTON_1, m_btn1Cache);

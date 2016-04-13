@@ -50,6 +50,7 @@ public:
 	gkScene* getLevel(void);
 
 	gkJoystick* getJoystick(void) {return m_joy;}
+	void configureJoystick();
 
 protected:
 

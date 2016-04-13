@@ -58,6 +58,10 @@ private:
 
 
 	gkJoystick*  m_joystick;
+	 int m_XAxis;
+     int m_YAxis;
+     int m_CamXAxis;
+	 int m_CamYAxis;
 
 
 	gkJoystickAxisState m_camRot, m_movement;

@@ -46,9 +46,14 @@ public:
 	void movePlayer(void);
 	
 	void updateInputState(void);
+	void setAxeXY(int axeX,int axeY);
 
 private:
 	bool isButtonDownCache(int btn, int& cache);
+	int m_XAxis;
+	int m_YAxis;
+	int m_CamXAxis;
+	int m_CamYAxis;
 
 	gkGamePlayer *m_player;
 

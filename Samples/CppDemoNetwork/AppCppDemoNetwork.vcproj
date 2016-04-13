@@ -151,7 +151,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="D:\GAMEKITLOCAL\gamekit;D:\DXSDK\Include;D:\GAMEKITLOCAL\gamekit\Engine;D:\GAMEKITLOCAL\BUILD\Engine;D:\GAMEKITLOCAL\gamekit\Ogre-1.9a\OgreMain\include;D:\GAMEKITLOCAL\gamekit\Ogre-1.9a\Components\Overlay\include;D:\GAMEKITLOCAL\BUILD\include;D:\GAMEKITLOCAL\gamekit\Ogre-1.9a\OgreMain\include\WIN32;D:\GAMEKITLOCAL\gamekit\Engine\AI;D:\GAMEKITLOCAL\gamekit\GUI;D:\GAMEKITLOCAL\gamekit\Engine\External\Ogre\supp;D:\GAMEKITLOCAL\gamekit\bullet\src;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\FreeType\include;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\FreeImage\ZLib;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\OIS\include;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\GameKit\Utils;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\GameKit\AnimKit;D:\GAMEKITLOCAL\gamekit\Tools\FileTools\File;D:\GAMEKITLOCAL\gamekit\Tools\FileTools\FileFormats\Blend;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\enet\include;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\OpenAL;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\Codecs\include;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\Lua\lua;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\Recast\Include;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\Detour\Include;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\OpenSteer\include;D:\GAMEKITLOCAL\gamekit\Samples\CppDemo\.;"
+				AdditionalIncludeDirectories="D:\GAMEKITLOCAL\gamekit;D:\DXSDK\Include;D:\GAMEKITLOCAL\gamekit\Engine;D:\GAMEKITLOCAL\BUILD\Engine;&quot;D:\GAMEKITLOCAL\gamekit\Ogre-1.9a\OgreMain\include&quot;;&quot;D:\GAMEKITLOCAL\gamekit\Ogre-1.9a\Components\Overlay\include&quot;;D:\GAMEKITLOCAL\BUILD\include;&quot;D:\GAMEKITLOCAL\gamekit\Ogre-1.9a\OgreMain\include\WIN32&quot;;D:\GAMEKITLOCAL\gamekit\Engine\AI;D:\GAMEKITLOCAL\gamekit\GUI;D:\GAMEKITLOCAL\gamekit\Engine\External\Ogre\supp;D:\GAMEKITLOCAL\gamekit\bullet\src;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\FreeType\include;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\FreeImage\ZLib;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\OIS\include;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\GameKit\Utils;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\GameKit\AnimKit;D:\GAMEKITLOCAL\gamekit\Tools\FileTools\File;D:\GAMEKITLOCAL\gamekit\Tools\FileTools\FileFormats\Blend;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\enet\include;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\OpenAL;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\Codecs\include;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\Lua\lua;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\Recast\Include;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\Detour\Include;D:\GAMEKITLOCAL\gamekit\Dependencies\Source\OpenSteer\include;D:\GAMEKITLOCAL\gamekit\Samples\CppDemoNetwork"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_WINSOCKAPI_;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;NOMINMAX;_VARIADIC_MAX=10;UT_USE_ZLIB;AL_STATIC_LIB;ALC_STATIC_LIB;CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
@@ -177,7 +177,6 @@
 				LinkLibraryDependencies="false"
 				AdditionalOptions=" /machine:X86"
 				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib OgreKitCore.lib OgreMainStatic.lib OgreOverlayStatic.lib FreeImage.lib freetype.lib RenderSystem_GLStatic.lib RenderSystem_Direct3D9Static.lib GameKitUtils.lib OIS.lib ZLib.lib AnimKit.lib fbtFile.lib bfBlend.lib OpenAL.lib OggVorbis.lib Lua.lib Recast.lib Detour.lib OpenSteer.lib D:\DXSDK\Lib\x86\d3d9.lib D:\DXSDK\Lib\x86\d3dx9.lib D:\DXSDK\Lib\x86\DxErr.lib D:\DXSDK\Lib\x86\dxguid.lib BulletDynamics.lib BulletCollision.lib LinearMath.lib Plugin_ParticleFXStatic.lib opengl32.lib glu32.lib enet.lib ws2_32.lib winmm.lib $(NOINHERIT)"
-				OutputFile="D:\GAMEKITLOCAL\BUILD\Samples\CppDemo\Release\AppCppDemo.exe"
 				Version="0.0"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(GameKitLIBS)\Release;$(GameKitDEPS)\enet\Release"
@@ -411,19 +410,23 @@
 				Name="Source"
 				>
 				<File
-					RelativePath="D:\GAMEKITLOCAL\gamekit\Samples\CppDemo\gkApplication.cpp"
+					RelativePath=".\gkApplication.cpp"
 					>
 				</File>
 				<File
-					RelativePath="D:\GAMEKITLOCAL\gamekit\Samples\CppDemo\gkCollisionCameraConstraint.cpp"
+					RelativePath=".\gkCollisionCameraConstraint.cpp"
 					>
 				</File>
 				<File
-					RelativePath="D:\GAMEKITLOCAL\gamekit\Samples\CppDemo\gkGameLevel.cpp"
+					RelativePath=".\gkGameLevel.cpp"
 					>
 				</File>
 				<File
-					RelativePath="D:\GAMEKITLOCAL\gamekit\Samples\CppDemo\gkGamePlayer.cpp"
+					RelativePath=".\gkGameNPC.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\gkGamePlayer.cpp"
 					>
 				</File>
 			</Filter>
@@ -431,19 +434,19 @@
 				Name="Header"
 				>
 				<File
-					RelativePath="D:\GAMEKITLOCAL\gamekit\Samples\CppDemo\gkApplication.h"
+					RelativePath=".\gkApplication.h"
 					>
 				</File>
 				<File
-					RelativePath="D:\GAMEKITLOCAL\gamekit\Samples\CppDemo\gkCollisionCameraConstraint.h"
+					RelativePath=".\gkGameLevel.h"
 					>
 				</File>
 				<File
-					RelativePath="D:\GAMEKITLOCAL\gamekit\Samples\CppDemo\gkGameLevel.h"
+					RelativePath=".\gkGameNPC.h"
 					>
 				</File>
 				<File
-					RelativePath="D:\GAMEKITLOCAL\gamekit\Samples\CppDemo\gkGamePlayer.h"
+					RelativePath=".\gkGamePlayer.h"
 					>
 				</File>
 			</Filter>
@@ -471,11 +474,11 @@
 				Name="Source"
 				>
 				<File
-					RelativePath="D:\GAMEKITLOCAL\gamekit\Samples\CppDemo\Controllers\gkDefaultController.cpp"
+					RelativePath=".\Controllers\gkDefaultController.cpp"
 					>
 				</File>
 				<File
-					RelativePath="D:\GAMEKITLOCAL\gamekit\Samples\CppDemo\Controllers\gkJoystickController.cpp"
+					RelativePath=".\Controllers\gkJoystickController.cpp"
 					>
 				</File>
 			</Filter>
@@ -483,15 +486,15 @@
 				Name="Header"
 				>
 				<File
-					RelativePath="D:\GAMEKITLOCAL\gamekit\Samples\CppDemo\Controllers\gkDefaultController.h"
+					RelativePath=".\Controllers\gkDefaultController.h"
 					>
 				</File>
 				<File
-					RelativePath="D:\GAMEKITLOCAL\gamekit\Samples\CppDemo\gkGameController.h"
+					RelativePath=".\gkGameController.h"
 					>
 				</File>
 				<File
-					RelativePath="D:\GAMEKITLOCAL\gamekit\Samples\CppDemo\Controllers\gkJoystickController.h"
+					RelativePath=".\Controllers\gkJoystickController.h"
 					>
 				</File>
 			</Filter>

@@ -60,7 +60,7 @@ gkGamePlayer::gkGamePlayer(gkGameLevel* levelData, bool forceKeyMouseInput)
 		m_input = new gkDefaultController(this);
 
 	
-	//gkMessageManager::getSingletonPtr()->
+	
 }
 
 
@@ -346,10 +346,10 @@ void gkGamePlayer::setInitialText(void)
 
 	if (m_currentState)
 	{
-		//if (m_levelData->getJoystick())
-		//	m_currentState->setValue("Found game controller!");
-		//else
-		//	m_currentState->setValue("No game controller found...");
+		if (m_levelData->getJoystick())
+			m_currentState->setValue("Found game controller!");
+		else
+			m_currentState->setValue("No game controller found...");
 	}
 }
 
@@ -823,7 +823,7 @@ void gkGamePlayer::update(gkScalar delta)
 		m_input->moveCamera();
 
 	gkFSM::update();
-
+/*
 if(ID==0)//our avatar
 	if(gkNetworkManager::getSingletonPtr()->isNetworkInstanceExists())
 			if(gkNetworkManager::getSingletonPtr()->isNetworkInstanceRunning())
@@ -832,7 +832,7 @@ if(ID==0)//our avatar
 			gkPrintf("Message sent : Update position from : Player %s position=%s \n",Ogre::StringConverter::toString(ID).c_str(),Ogre::StringConverter::toString(pos).c_str());
 			//gkPrintf("Time (gkScalar)=%d \n" ,Ogre::StringConverter::toString(delta).c_str());
 			gkNetworkManager::getSingletonPtr()->sendMessage(Ogre::StringConverter::toString(ID),"receiver","Position",Ogre::StringConverter::toString(pos));
-			}
+			}*/
 	switch (getState())
 	{
 		

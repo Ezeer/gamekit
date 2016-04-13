@@ -55,7 +55,7 @@ int main(int argc, char** argv)
 	//prefs.debugPhysics = true;
 	//prefs.debugFps = true;
 //	prefs.grabInput = false;
-    prefs.load("OgreKitStartup.cfg");
+    //prefs.load("OgreKitStartup.cfg");
    
 	gkEngine eng(&prefs);
 

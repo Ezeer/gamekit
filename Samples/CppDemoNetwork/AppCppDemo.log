@@ -1,12 +1,13 @@
-07:27:52: ************ NO NETWORK ****************
-07:27:52: WINDOW handle: 0x1209b4
-07:27:52: OGRE EXCEPTION(6:FileNotFoundException): 'res.cfg' file not found! in ConfigFile::load at ..\..\..\gamekit\Ogre-1.9a\OgreMain\src\OgreConfigFile.cpp (line 82)
-07:27:53: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource char_momo_col in resource group CppDemo or any other group. in ResourceGroupManager::openResource at ..\..\..\gamekit\Ogre-1.9a\OgreMain\src\OgreResourceGroupManager.cpp (line 756)
-07:27:53: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource char_momo_col in resource group CppDemo or any other group. in ResourceGroupManager::openResource at ..\..\..\gamekit\Ogre-1.9a\OgreMain\src\OgreResourceGroupManager.cpp (line 756)
-07:27:53: GameLevel: Blend 'Momo.blend' loaded
-07:27:53: GameLevel: Blend 'Maps.blend'->Pickup loaded
-07:27:53: Can't assign material  to SubEntity of MomoPhysics because this Material does not exist. Have you forgotten to define it in a .material script?
-07:27:54: Can't assign material  to SubEntity of MomoPhysics/UID{1} because this Material does not exist. Have you forgotten to define it in a .material script?
-07:27:54: Can't assign material  to SubEntity of MomoPhysics/UID{1}/UID{6} because this Material does not exist. Have you forgotten to define it in a .material script?
-07:27:54: CppDemo: enter main loop.
-07:28:01: CppDemo: exit main loop.
+11:16:13: *********************************************************
+11:16:13: NETWORK MODE: 0
+11:16:13: starting the server : IP=127.0.0.1 PORT=70
+11:16:13: *********************************************************
+11:16:13: WINDOW handle: 0x4302a8
+11:16:13: OGRE EXCEPTION(6:FileNotFoundException): 'res.cfg' file not found! in ConfigFile::load at ..\..\..\gamekit\Ogre-1.9a\OgreMain\src\OgreConfigFile.cpp (line 82)
+11:16:14: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource char_momo_col in resource group CppDemo or any other group. in ResourceGroupManager::openResource at ..\..\..\gamekit\Ogre-1.9a\OgreMain\src\OgreResourceGroupManager.cpp (line 756)
+11:16:14: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource char_momo_col in resource group CppDemo or any other group. in ResourceGroupManager::openResource at ..\..\..\gamekit\Ogre-1.9a\OgreMain\src\OgreResourceGroupManager.cpp (line 756)
+11:16:14: GameLevel: Blend 'Momo.blend' loaded
+11:16:15: GameLevel: Blend 'Maps.blend'->Pickup loaded
+11:16:15: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource char_momo_col in resource group CppDemo or any other group. in ResourceGroupManager::openResource at ..\..\..\gamekit\Ogre-1.9a\OgreMain\src\OgreResourceGroupManager.cpp (line 756)
+11:16:15: Error loading texture char_momo_col. Texture layer will be blank. Loading the texture failed with the following exception: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource char_momo_col in resource group CppDemo or any other group. in ResourceGroupManager::openResource at ..\..\..\gamekit\Ogre-1.9a\OgreMain\src\OgreResourceGroupManager.cpp (line 756)
+11:16:15: CppDemo: enter main loop.

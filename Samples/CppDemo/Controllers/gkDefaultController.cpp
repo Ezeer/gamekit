@@ -38,10 +38,10 @@ gkDefaultController::gkDefaultController(gkGamePlayer* player)
 	m_mouse = gkWindowSystem::getSingleton().getMouse();
 
 
-	bindScanCode(IC_RUN,      KC_WKEY);
+	bindScanCode(IC_RUN,      KC_UPARROWKEY);
 	bindScanCode(IC_WALK,     KC_NONE);
 	bindScanCode(IC_BUTTON_0, gkMouse::Left);
-	bindScanCode(IC_BUTTON_1, KC_SPACEKEY);
+	bindScanCode(IC_BUTTON_1, KC_DOWNARROWKEY);
 	bindScanCode(IC_BUTTON_2, gkMouse::Right);
 	bindScanCode(IC_STOP,     KC_NONE);
 }

@@ -40,7 +40,7 @@ int main(int argc, char** argv)
 	TestMemory;
 
 
-	gkLogger::enable("AppCppDemo.log", GK_CPP_VERBOSE_LOG);
+	gkLogger::enable("AppCppDemoNetwork.log", GK_CPP_VERBOSE_LOG);
 
 
 	gkUserDefs prefs;

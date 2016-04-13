@@ -346,10 +346,10 @@ void gkGamePlayer::setInitialText(void)
 
 	if (m_currentState)
 	{
-		//if (m_levelData->getJoystick())
-		//	m_currentState->setValue("Found game controller!");
-		//else
-		//	m_currentState->setValue("No game controller found...");
+		if (m_levelData->getJoystick())
+			m_currentState->setValue("Found game controller!");
+		else
+			m_currentState->setValue("No game controller found...");
 	}
 }
 

@@ -58,6 +58,9 @@ gkGameLevel::gkGameLevel()
 	gkFontManager::getSingleton().addResourceListener(this);
 }
 
+void gkGameLevel::configureJoystick()
+{
+}
 
 gkGameLevel::~gkGameLevel()
 {
