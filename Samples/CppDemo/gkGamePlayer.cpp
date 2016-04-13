@@ -58,6 +58,9 @@ gkGamePlayer::gkGamePlayer(gkGameLevel* levelData, bool forceKeyMouseInput)
 		m_input = new gkJoystickController(this);
 	else
 		m_input = new gkDefaultController(this);
+
+	
+	//gkMessageManager::getSingletonPtr()->
 }
 
 
@@ -434,7 +437,8 @@ bool gkGamePlayer::wantsToWhip(void)
 }
 
 bool gkGamePlayer::wantsToJump(void)
-{
+{   	
+	
 	return m_input->hasInput(gkGameController::IC_BUTTON_1);
 }
 
@@ -783,7 +787,7 @@ void gkGamePlayer::moveState(void)
 
 void gkGamePlayer::idleState(void)
 {
-	m_entity->playAnimation(m_animations[GK_ANIM_IDLE_CURRENT], gkAppData::gkGlobalActionBlend);
+ m_entity->playAnimation(m_animations[GK_ANIM_IDLE_CURRENT], gkAppData::gkGlobalActionBlend);
 }
 
 
@@ -820,8 +824,10 @@ void gkGamePlayer::update(gkScalar delta)
 
 	gkFSM::update();
 
+
 	switch (getState())
 	{
+		
 	case GK_PLAY_IDLE:
 		idleState();
 		break;

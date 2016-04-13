@@ -47,9 +47,9 @@ public:
 
 	struct    MessageListener
 	{
-		MessageListener() {}
+		MessageListener():ID(-1) {}
 		virtual ~MessageListener() {}
-
+        int ID;
 		virtual void handleMessage(gkMessageManager::Message* message) = 0;
 	};
 
@@ -73,6 +73,7 @@ public:
 
 private:
 	utArray<MessageListener*> m_listeners;
+	int IDgenerated;
 
 public:
 	gkMessageManager();
@@ -81,6 +82,7 @@ public:
 	void addListener(MessageListener* listener);
 	void removeListener(MessageListener* listener);
 	void sendMessage(gkString from, gkString to, gkString subject, gkString body);
+	int ListenersCount(){return m_listeners.size();}
 
 	UT_DECLARE_SINGLETON(gkMessageManager);
 };

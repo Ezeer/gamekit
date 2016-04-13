@@ -37,9 +37,22 @@
 class gkRadarSensor;
 class akAnimationSequence;
 
+//MODIFIED BY EZEE TO TEST NEW NETWORK INTERFACE
+/*--------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------
 
+Stick Note:
+    
+Right now, one instance of application can only start one server or one client.
 
-class gkGamePlayer : public gkFSM
+So an instance cannot have both a client or a server, or two servers or two clients.
+ 
+Any incoming network messages will be send through Message System, so if the receiver object does not have a message
+listenter, it will not be able to receive any message
+*/  
+#include "gkMessageManager.h"
+
+class gkGamePlayer : public gkFSM 
 {
 public:
 
@@ -83,6 +96,7 @@ public:
 	gkGamePlayer* clone();
 
 	void setPosition(const gkVector3& pos);
+	
 
 protected:
 	void loadAnimations();
@@ -172,6 +186,7 @@ protected:
 
 
 	gkGameController *m_input;
+	
 };
 
 

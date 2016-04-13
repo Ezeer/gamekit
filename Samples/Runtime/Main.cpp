@@ -270,23 +270,7 @@ bool OgreKit::setup(void)
 	//gkCompositorManager::getSingleton().setCompositorChain(GK_COMPOSITOR_OP_ADD, GK_COMPOSITOR_BLOOM);
 #endif
 
-	//network
-	//getPrefs().networkType=1;
-	/*gkPrintf ("NETWORK MODE: %i\n",m_prefs.networkType);
-		
-	if(getPrefs().networkType==SERVER)
-	{
-	gkNetworkManager::getSingletonPtr()->createNetworkInstance(SERVER,"server","127.0.0.1",77);
-	gkPrintf ("************ starting the server ****************\n");
-	}else if (getPrefs().networkType==CLIENT)
-	{
-	gkNetworkManager::getSingletonPtr()->createNetworkInstance(CLIENT,"client","127.0.0.1",77);
-	gkPrintf ("************ starting the client ****************\n");
-	}
 	
-	gkNetworkManager::getSingletonPtr()->startNetworkInstance();
-	
-	*/
 	
 	return true;
 }

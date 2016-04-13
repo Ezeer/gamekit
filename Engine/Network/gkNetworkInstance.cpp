@@ -205,7 +205,8 @@ void gkNetworkInstance::run(void)
 				switch (lEvent.type)
 				{
 				case ENET_EVENT_TYPE_CONNECT:
-               // printf("Connected with %i on port %i !\n", lEvent.peer->address.host,lEvent.peer->address.port);
+					gkPrintf("Connected with client%i !\n", lEvent.peer->connectID);
+                
 					break;
 
 				case ENET_EVENT_TYPE_RECEIVE:

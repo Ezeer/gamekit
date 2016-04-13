@@ -145,6 +145,7 @@ void gkGameLevel::loadPickup(void)
 
 	m_player = new gkGamePlayer(this);
 	m_player->load(playerData);
+	
 
 	m_pickup->createInstance();
 
@@ -177,10 +178,14 @@ void gkGameLevel::tick(gkScalar delta)
 {
 	// update game states
 	if (m_player)
-		m_player->update(delta);
+	{	m_player->update(delta);
+	
+	}
+		
 
 	for (UTsize i = 0; i < m_enemies.size(); i++)
-		m_enemies[i]->update(delta);
+	m_enemies[i]->update(delta);
+	
 
 	if (m_keyboard->key_count > 0)
 	{

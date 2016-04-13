@@ -51,7 +51,7 @@ void gkMessageManager::GenericMessageListener::handleMessage(gkMessageManager::M
 }
 
 
-gkMessageManager::gkMessageManager()
+gkMessageManager::gkMessageManager():IDgenerated(0)
 {
 
 }
@@ -60,7 +60,9 @@ gkMessageManager::gkMessageManager()
 void gkMessageManager::addListener(MessageListener* listener)
 {
 	if ( m_listeners.find(listener) == UT_NPOS)
+	{   listener->ID=IDgenerated++;
 		m_listeners.push_back(listener);
+	}
 }
 
 

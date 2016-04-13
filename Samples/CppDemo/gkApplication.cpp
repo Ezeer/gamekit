@@ -44,6 +44,7 @@ int main(int argc, char** argv)
 
 
 	gkUserDefs prefs;
+	
 	prefs.rendersystem = OGRE_RS_D3D9;
 	//prefs.winsize.x = 1360.f;
 	//prefs.winsize.y = 768.f;
@@ -54,8 +55,8 @@ int main(int argc, char** argv)
 	//prefs.debugPhysics = true;
 	//prefs.debugFps = true;
 //	prefs.grabInput = false;
-
-
+    prefs.load("OgreKitStartup.cfg");
+   
 	gkEngine eng(&prefs);
 
 	//Setup everything. Ogre, gk etc.
