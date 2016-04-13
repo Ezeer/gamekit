@@ -35,6 +35,10 @@
 
 gkJoystickController::gkJoystickController(gkGamePlayer* player)
 	:    m_player(player),
+	     m_XAxis(0),
+         m_YAxis(1),
+         m_CamXAxis(0),
+	     m_CamYAxis(1),
 	     m_btn1Cache(0),
 	     m_btn2Cache(0),
 	     m_btn3Cache(0),
@@ -44,10 +48,7 @@ gkJoystickController::gkJoystickController(gkGamePlayer* player)
 {
 
 	m_joystick = gkWindowSystem::getSingleton().getJoystick(0);
-	 m_XAxis=0;
-     m_YAxis=1;
-     m_CamXAxis=0;
-	 m_CamYAxis=1;
+	 
 	GK_ASSERT(m_joystick);
 }
 
@@ -55,11 +56,18 @@ gkJoystickController::gkJoystickController(gkGamePlayer* player)
 gkJoystickController::~gkJoystickController()
 {
 }
-
+///Use it to change your joystick axes for movement
 void gkJoystickController::setAxeXY(int axeX,int axeY)
 {
 	 m_XAxis=axeX;
 	 m_YAxis=axeY;
+}
+
+///Use it to change your joystick axes for camera
+void gkJoystickController::setCamAxeXY(int axeX,int axeY)
+{
+	 m_CamXAxis=axeX;
+	 m_CamYAxis=axeY;
 }
 
 bool gkJoystickController::hasInput(const gkGameController::InputCode& ic)

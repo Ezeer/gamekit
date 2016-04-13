@@ -46,7 +46,9 @@ public:
 	void movePlayer(void);
 	
 	void updateInputState(void);
+	///setup
 	void setAxeXY(int axeX,int axeY);
+	void setCamAxeXY(int axeX,int axeY);
 
 private:
 	bool isButtonDownCache(int btn, int& cache);
