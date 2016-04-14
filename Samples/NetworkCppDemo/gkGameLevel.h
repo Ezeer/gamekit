@@ -33,11 +33,13 @@
 #include "gkInput.h"
 #include "gkInstancedManager.h"
 #include "gkResourceManager.h"
+#include "gkMessageManager.h"
 
 
 class gkGameLevel : public gkEngine::Listener,
 	public gkInstancedManager::InstancedListener,
 	public gkResourceManager::ResourceListener
+	
 {
 public:
 
@@ -51,6 +53,17 @@ public:
 
 	gkJoystick* getJoystick(void) {return m_joy;}
 	void configureJoystick();
+
+	//NETWORK
+//	void registerToNetwork(){gkMessageManager::getSingletonPtr()->addListener(this);}
+	bool spawnRequest();
+	void spawn();
+
+private:
+
+	bool spawnRequested;
+	///NETWORK
+	//virtual void handleMessage(gkMessageManager::Message* message);
 
 protected:
 
@@ -71,6 +84,7 @@ protected:
 	gkJoystick* m_joy;
 	void tick(gkScalar delta);
 };
+
 
 
 #endif//_gkGameLevel_h_

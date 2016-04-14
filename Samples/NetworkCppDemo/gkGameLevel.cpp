@@ -45,6 +45,7 @@ gkGameLevel::gkGameLevel()
 	     m_mouse(0),
 		 m_player(0)
 {
+//	registerToNetwork();
 	m_keyboard = gkWindowSystem::getSingleton().getKeyboard();
 	m_mouse    = gkWindowSystem::getSingleton().getMouse();
 	m_joy      = gkWindowSystem::getSingleton().getJoystick(0);
@@ -60,6 +61,8 @@ gkGameLevel::gkGameLevel()
 
 void gkGameLevel::configureJoystick()
 {
+	if(!m_joy)return;
+	
 }
 
 gkGameLevel::~gkGameLevel()
@@ -148,15 +151,18 @@ void gkGameLevel::loadPickup(void)
 
 	m_player = new gkGamePlayer(this);
 	m_player->load(playerData);
+    m_player->registerToNetwork();
 	
 
 	m_pickup->createInstance();
 
 	gkGamePlayer* enemy = m_player->clone();
+	enemy->registerToNetwork();
 	enemy->setPosition(gkVector3(0,1,1));
 	m_enemies.push_back(enemy);
 
 	enemy = enemy->clone();
+	enemy->registerToNetwork();
 	enemy->setPosition(gkVector3(1,1,1));
 	m_enemies.push_back(enemy);
 }
@@ -176,6 +182,26 @@ void gkGameLevel::notifyResourceCreated(gkResource* res)
 }
 
 
+///---------------------------------------------------------------------------------------------------
+
+bool gkGameLevel::spawnRequest()
+{
+	if(spawnRequested)
+	{
+		spawnRequested=false;//reinit
+		return true;
+	}
+	return false;
+}
+///---------------------------------------------------------------------------------------------------
+
+void gkGameLevel::spawn()
+{
+	gkGamePlayer* enemy = m_player->clone();
+	enemy->setPosition(gkVector3(0,1,1));
+	m_enemies.push_back(enemy);
+}
+///---------------------------------------------------------------------------------------------------
 
 void gkGameLevel::tick(gkScalar delta)
 {
@@ -185,10 +211,15 @@ void gkGameLevel::tick(gkScalar delta)
 	
 	}
 		
-
+    //add netplayer if needed
+	/*if(spawnRequest())
+	{
+		//create the player
+		//spawn();
+	}
 	for (UTsize i = 0; i < m_enemies.size(); i++)
 	m_enemies[i]->update(delta);
-	
+	*/
 
 	if (m_keyboard->key_count > 0)
 	{
@@ -208,3 +239,10 @@ gkScene* gkGameLevel::getLevel(void)
 		return m_killThemAll;
 	return 0;
 }
+/*
+void gkGameLevel::handleMessage(gkMessageManager::Message* message)
+{
+	/// subjects : SPAWN,LEVEL_CHANGE,GAME_STATUS
+
+
+}*/

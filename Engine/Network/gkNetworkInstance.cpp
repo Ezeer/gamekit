@@ -174,7 +174,7 @@ void gkNetworkInstance::sendMessage(const gkString & pSender, const gkString & p
 	lPacketMessage.append(";");
 	lPacketMessage.append(pSubject);
 	lPacketMessage.append(";");
-	lPacketMessage.append("pBody");
+	lPacketMessage.append(pBody);
 	lPacketMessage.append(";");
 
 	// Create the packet according to the message size

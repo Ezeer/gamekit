@@ -52,6 +52,7 @@ public:
 	gkJoystick* getJoystick(void) {return m_joy;}
 	void configureJoystick();
 
+
 protected:
 
 	void notifyInstanceCreated(gkInstancedObject* inst);

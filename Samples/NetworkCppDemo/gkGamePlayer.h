@@ -52,7 +52,7 @@ listenter, it will not be able to receive any message
 */  
 #include "gkMessageManager.h"
 
-class gkGamePlayer : public gkFSM 
+class gkGamePlayer : public gkFSM ,public gkMessageManager::MessageListener
 {
 public:
 
@@ -85,6 +85,9 @@ public:
 
 
 	void load(gkBlendFile* playerData);
+	///NETWORK
+	  void handleMessage(gkMessageManager::Message* message);
+	  void registerToNetwork(){gkMessageManager::getSingletonPtr()->addListener(this);}
 
 
 	void update(gkScalar delta);
@@ -97,7 +100,8 @@ public:
 
 	void setPosition(const gkVector3& pos);
 	
-
+   
+	
 protected:
 	void loadAnimations();
 	void loadConstraints();

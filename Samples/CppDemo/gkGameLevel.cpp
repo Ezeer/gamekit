@@ -176,7 +176,6 @@ void gkGameLevel::notifyResourceCreated(gkResource* res)
 }
 
 
-
 void gkGameLevel::tick(gkScalar delta)
 {
 	// update game states
@@ -185,7 +184,10 @@ void gkGameLevel::tick(gkScalar delta)
 	
 	}
 		
+    if(spawnRequest())
+	{
 
+	}
 	for (UTsize i = 0; i < m_enemies.size(); i++)
 	m_enemies[i]->update(delta);
 	

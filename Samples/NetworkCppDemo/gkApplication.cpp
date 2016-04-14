@@ -40,7 +40,7 @@ int main(int argc, char** argv)
 	TestMemory;
 
 
-	gkLogger::enable("AppCppDemo.log", GK_CPP_VERBOSE_LOG);
+	gkLogger::enable("NETAppCppDemo.log", GK_CPP_VERBOSE_LOG);
 
 
 	gkUserDefs prefs;
@@ -55,7 +55,10 @@ int main(int argc, char** argv)
 	//prefs.debugPhysics = true;
 	//prefs.debugFps = true;
 //	prefs.grabInput = false;
-    //prefs.load("OgreKitStartup.cfg");
+	//prefs.networkHost="127.0.0.1";
+	//prefs.networkPort=70;
+	//prefs.networkType=0;
+    prefs.load("OgreKitStartup.cfg");
    
 	gkEngine eng(&prefs);
 

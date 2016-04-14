@@ -812,6 +812,7 @@ void gkGamePlayer::jumpState(void)
 
 void gkGamePlayer::update(gkScalar delta)
 {
+
 	if (!m_textInit)
 	{
 		m_textInit = true;
@@ -852,5 +853,18 @@ void gkGamePlayer::update(gkScalar delta)
 	case GK_PLAY_ATTACK_1:
 		kickState();
 		break;
-	}
+	}/**/
 }
+
+void gkGamePlayer::handleMessage(gkMessageManager::Message* message)
+{
+	/// subjects : CHAT,UPDATE_POSROTVEL
+	gkPrintf("Message received from :%s with subject %s and data = %s",message->m_from.c_str(),message->m_subject.c_str(),message->m_body.c_str());
+ 	 if(message->m_subject.compare("Position")==0)
+ 	 { 
+ 		 const Ogre::Vector3 v;
+ 		 Ogre::StringConverter::parseVector3(message->m_body,v);
+ 		 m_physics->setPosition(v);
+ 	 }
+}
+
