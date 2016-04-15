@@ -5,7 +5,7 @@
 
     Copyright (c) 2006-2010 Charlie C.
 
-    Contributor(s): none yet.
+    Contributor(s): Ezee ( bruno C )
 -------------------------------------------------------------------------------
   This software is provided 'as-is', without any express or implied
   warranty. In no event will the authors be held liable for any damages
@@ -29,12 +29,14 @@
 #include "gkGameObjectManager.h"
 #include "gkFontManager.h"
 #include "OgreKit.h"
+#include <gkNetworkManager.h>
 
 #ifdef OGREKIT_CPPDEMO_COMPILE_BLEND
 #include "Generated/gkInlineBlendFiles.inl"
 #endif
 
 #define LEVEL_GROUP_NAME "CppDemo"
+
 
 
 gkGameLevel::gkGameLevel()
@@ -45,7 +47,12 @@ gkGameLevel::gkGameLevel()
 	     m_mouse(0),
 		 m_player(0)
 {
-//	registerToNetwork();
+    //	client or server behavior
+	NetType = networkType();
+	if(NetType>=0)registerToNetwork();
+
+	spawnRequested=false;
+	canJoin=false;
 	m_keyboard = gkWindowSystem::getSingleton().getKeyboard();
 	m_mouse    = gkWindowSystem::getSingleton().getMouse();
 	m_joy      = gkWindowSystem::getSingleton().getJoystick(0);
@@ -57,6 +64,17 @@ gkGameLevel::gkGameLevel()
 	gkGroupManager::getSingleton().addResourceListener(this);
 	gkTextManager::getSingleton().addResourceListener(this);
 	gkFontManager::getSingleton().addResourceListener(this);
+}
+
+bool gkGameLevel::isMultiplayer()
+{
+	return gkNetworkManager::getSingletonPtr()->isNetworkInstanceExists();
+}
+
+int gkGameLevel::networkType()
+{
+	if(gkNetworkManager::getSingletonPtr()->isServer())return 0;
+	return 1;
 }
 
 void gkGameLevel::configureJoystick()
@@ -90,12 +108,10 @@ gkGameLevel::~gkGameLevel()
 void gkGameLevel::loadLevel(const gkLevel& level)
 {
 	m_level = level;
-
-	if (m_level == GK_LEVEL_PICKUP)
-		loadPickup();
-	else if (m_level == GK_LEVEL_KILL_THEM_ALL)
-	{
-	}
+	if (m_level == GK_LEVEL_PICKUP)loadPickup();
+	//client must say to server it's okay
+	gkNetworkManager::getSingletonPtr()->sendMessage("gkGameLevel","server","JOIN",DONE_JOIN);
+		           
 }
 
 
@@ -123,7 +139,6 @@ void gkGameLevel::loadPickup(void)
 
 	// log status
 	gkPrintf("GameLevel: Blend '%s' loaded", GK_RESOURCE_PLAYER);
-
 
 #ifndef OGREKIT_CPPDEMO_COMPILE_BLEND
 	gkBlendFile* mapData = gkBlendLoader::getSingleton().loadFile(gkUtils::getFile(GK_RESOURCE_MAPS), "Pickup", LEVEL_GROUP_NAME);
@@ -155,7 +170,7 @@ void gkGameLevel::loadPickup(void)
 	
 
 	m_pickup->createInstance();
-
+/*
 	gkGamePlayer* enemy = m_player->clone();
 	enemy->registerToNetwork();
 	enemy->setPosition(gkVector3(0,1,1));
@@ -165,6 +180,7 @@ void gkGameLevel::loadPickup(void)
 	enemy->registerToNetwork();
 	enemy->setPosition(gkVector3(1,1,1));
 	m_enemies.push_back(enemy);
+	*/
 }
 
 
@@ -211,15 +227,10 @@ void gkGameLevel::tick(gkScalar delta)
 	
 	}
 		
-    //add netplayer if needed
-	/*if(spawnRequest())
-	{
-		//create the player
-		//spawn();
-	}
+    
 	for (UTsize i = 0; i < m_enemies.size(); i++)
 	m_enemies[i]->update(delta);
-	*/
+	
 
 	if (m_keyboard->key_count > 0)
 	{
@@ -227,9 +238,7 @@ void gkGameLevel::tick(gkScalar delta)
 			gkEngine::getSingleton().requestExit();
 	}
 }
-
-
-
+///---------------------------------------------------------------------------------------------------
 
 gkScene* gkGameLevel::getLevel(void)
 {
@@ -239,10 +248,66 @@ gkScene* gkGameLevel::getLevel(void)
 		return m_killThemAll;
 	return 0;
 }
-/*
+
+///---------------------------------------------------------------------------------------------------
+
 void gkGameLevel::handleMessage(gkMessageManager::Message* message)
 {
-	/// subjects : SPAWN,LEVEL_CHANGE,GAME_STATUS
+	
+	/// FRAMEWORK :
+	///Client ask to join a game first .
+	///When he receives clearance and when successfully loaded the level
+	// he sends a JOINED status , the server then spawn the client in his scene
+	/// whil ethe client do the same for the server player .
+	int subject=-1;
+    if(message->m_subject.compare("JOIN")==0)
+		subject=0;
+	else if(message->m_subject.compare("MAP")==0)
+		subject=1;
+	else if(message->m_subject.compare("CHAT")==0)
+		subject=3;
+    //debug...
+	printf("****** NETWORK MESSAGE RECEIVED   ********* \n");
+	printf("FROM ' %s ' : SUBJECT : ' %s ' BODY : ' %s '\n",message->m_from.c_str(),message->m_subject.c_str(),message->m_body.c_str());
+			    
+	 //	client or server behavior
+	switch(NetType)
+	{
+	 case SERVER:
+		 switch(subject)
+			{
+				//JOIN
+	          case 0:
+				  //BODY READ
+				  //case REQUEST_JOIN
+				  if(message->m_body.compare(REQUEST_JOIN)==0)
+				  {
+				   gkNetworkManager::getSingletonPtr()->sendMessage("server","gkGameLevel","JOIN",CLEARANCE_JOIN);
+		           break;
+				  }
+				   //case DONE_JOIN
+				  if(message->m_body.compare(DONE_JOIN)==0)
+				  {
+					  //add the player
+					  spawn();
+				   break;
+				  }
+			}break;
 
+     case CLIENT:switch(subject)
+			{
+				//JOIN
+	         case 0://BODY READ
+				  if(message->m_body.compare(CLEARANCE_JOIN)==0)
+				  {
+					  canJoin=true;
+			          break;
+				  }
+				  break;
 
-}*/
+			 case 1:break;
+			}break;
+
+	}
+printf("*************************************** \n");
+}

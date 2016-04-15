@@ -59,8 +59,6 @@ gkGamePlayer::gkGamePlayer(gkGameLevel* levelData, bool forceKeyMouseInput)
 	else
 		m_input = new gkDefaultController(this);
 
-	
-	//gkMessageManager::getSingletonPtr()->
 }
 
 
@@ -859,9 +857,9 @@ void gkGamePlayer::update(gkScalar delta)
 void gkGamePlayer::handleMessage(gkMessageManager::Message* message)
 {
 	/// subjects : CHAT,UPDATE_POSROTVEL
-	gkPrintf("Message received from :%s with subject %s and data = %s",message->m_from.c_str(),message->m_subject.c_str(),message->m_body.c_str());
- 	 if(message->m_subject.compare("Position")==0)
- 	 { 
+	 if(message->m_subject.compare("Position")==0)
+ 	 { gkPrintf("Message received from :%s with subject %s and data = %s",message->m_from.c_str(),message->m_subject.c_str(),message->m_body.c_str());
+ 	
  		 const Ogre::Vector3 v;
  		 Ogre::StringConverter::parseVector3(message->m_body,v);
  		 m_physics->setPosition(v);

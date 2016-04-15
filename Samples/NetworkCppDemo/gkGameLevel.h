@@ -34,11 +34,18 @@
 #include "gkInstancedManager.h"
 #include "gkResourceManager.h"
 #include "gkMessageManager.h"
+#define SERVER 0
+#define CLIENT 1
+
+#define REQUEST_JOIN "request_join"
+#define CLEARANCE_JOIN "clearance_join"
+#define DONE_JOIN "done_join"
 
 
 class gkGameLevel : public gkEngine::Listener,
 	public gkInstancedManager::InstancedListener,
-	public gkResourceManager::ResourceListener
+	public gkResourceManager::ResourceListener,
+	public gkMessageManager::MessageListener
 	
 {
 public:
@@ -55,15 +62,21 @@ public:
 	void configureJoystick();
 
 	//NETWORK
-//	void registerToNetwork(){gkMessageManager::getSingletonPtr()->addListener(this);}
+	void registerToNetwork(){gkMessageManager::getSingletonPtr()->addListener(this);}
+	bool isMultiplayer();
+	int networkType();
+	int NetType;
 	bool spawnRequest();
 	void spawn();
-
+    bool canJoin;
 private:
 
 	bool spawnRequested;
+	
 	///NETWORK
-	//virtual void handleMessage(gkMessageManager::Message* message);
+	///subjects : MAP,JOIN,QUIT etc .. ?
+	 void handleMessage(gkMessageManager::Message* message);
+	 
 
 protected:
 

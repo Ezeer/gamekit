@@ -34,6 +34,7 @@
 #include "Loaders/Blender2/gkBlendLoader.h"
 #include "Loaders/Blender2/gkBlendFile.h"
 #include "gkScene.h"
+#include <gkNetworkManager.h>
 
 int main(int argc, char** argv)
 {
@@ -49,7 +50,7 @@ int main(int argc, char** argv)
 	//prefs.winsize.x = 1360.f;
 	//prefs.winsize.y = 768.f;
 	//prefs.fullscreen = true;
-	prefs.wintitle = "OgreKit C++ Testbed";
+	//prefs.wintitle = "NETAppCppDemo";
 	prefs.verbose = GK_CPP_VERBOSE_LOG;
 	//prefs.fsaa = true;
 	//prefs.debugPhysics = true;
@@ -74,7 +75,25 @@ int main(int argc, char** argv)
 
 	{
 		gkGameLevel game;
-		game.loadLevel(GK_LEVEL_PICKUP);
+		
+		switch(prefs.networkType)
+	{
+	 case SERVER:
+		 game.loadLevel(GK_LEVEL_PICKUP);break;
+     //client must request to join before loading
+	 case CLIENT:if(!game.canJoin)
+				 {
+					 gkNetworkManager::getSingletonPtr()->sendMessage("gkGameLevel","server","JOIN",REQUEST_JOIN);
+		             while(!game.canJoin)
+					 {printf("Waiting for server acceptance ...\n");}
+					  game.loadLevel(GK_LEVEL_PICKUP);
+				      break;
+				 }
+				 
+
+
+	}
+		
 
 
 
@@ -92,6 +111,7 @@ int main(int argc, char** argv)
 
 		gkPrintf("CppDemo: enter main loop.\n");
 
+		//ToDO : Different game loop if app is a client or server
 		for (;;)
 		{
 			if (!eng.stepOneFrame())
