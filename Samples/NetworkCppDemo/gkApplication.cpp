@@ -47,19 +47,14 @@ int main(int argc, char** argv)
 	gkUserDefs prefs;
 	
 	prefs.rendersystem = OGRE_RS_D3D9;
-	//prefs.winsize.x = 1360.f;
-	//prefs.winsize.y = 768.f;
-	//prefs.fullscreen = true;
-	//prefs.wintitle = "NETAppCppDemo";
 	prefs.verbose = GK_CPP_VERBOSE_LOG;
-	//prefs.fsaa = true;
-	//prefs.debugPhysics = true;
-	//prefs.debugFps = true;
-//	prefs.grabInput = false;
-	//prefs.networkHost="127.0.0.1";
-	//prefs.networkPort=70;
-	//prefs.networkType=0;
-    prefs.load("OgreKitStartup.cfg");
+	//i use a file for network only here
+    gkUserDefs filepref;
+	filepref.load("network.cfg");
+
+	prefs.networkHost=filepref.networkHost;
+	prefs.networkPort=filepref.networkPort;
+	prefs.networkType=filepref.networkType;
    
 	gkEngine eng(&prefs);
 
